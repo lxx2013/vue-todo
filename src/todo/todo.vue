@@ -1,8 +1,8 @@
 <template>
     <section class="real-app">
         <input type="text" class="add-input" autofocus placeholder="なにをするか" @keyup.enter="addTodo">
-        <item v-for="todo in todos" :todo="todo" :key="todo.id" @del="deleteTodo"></item>
-        <tabs :filter="filter" :todos="todos" @toggle="toggleFilter"></tabs>
+        <item v-for="todo in show_todos" :todo="todo" :key="todo.id" @del="deleteTodo"></item>
+        <tabs :filter="filter" :todos="todos" @toggle="toggleFilter" @clear="clear"></tabs>
     </section>
 </template>
 
@@ -22,6 +22,18 @@
             item,
             tabs,
         },
+        computed:{
+            show_todos:function(){
+                 return this.todos.filter(todo=> {
+                    let filter = this.filter;
+                    if(filter == "all"){
+                        return 1;
+                    }
+                    else {
+                        return filter=="active"?!todo.completed:todo.completed;
+                    }
+                })}
+        },
         methods: {
             addTodo(e) {
                 this.todos.unshift({
@@ -36,6 +48,10 @@
             },
             toggleFilter(state) {
                 this.filter = state;
+            },
+            clear(){
+                //alert('clear')
+                this.todos = this.todos.filter(a=> a.completed==false)
             }
         }
     }

@@ -30,6 +30,11 @@
             clearAllCompleted() {},
             toggleFilter(state) {
                 this.$emit('toggle', state)
+            },
+            clearAllCompleted(){
+                this.$emit('clear')
+                //this.todos = this.todos.filter(a=> a.completed==false)
+                //不允许子组件修改拿到的 props
             }
         },
         computed: {
