@@ -1,6 +1,6 @@
 <template>
-    <section class="real-app">
-        <input type="text" class="add-input" autofocus placeholder="なにをするか" @keyup.enter="addTodo">
+    <section id="real-app" class="real-app">
+        <input type="text" class="add-input" autofocus :placeholder="placeholder" @keyup.enter="addTodo">
         <item v-for="todo in show_todos" :todo="todo" :key="todo.id" @del="deleteTodo"></item>
         <tabs :filter="filter" :todos="todos" @toggle="toggleFilter" @clear="clear"></tabs>
     </section>
@@ -15,7 +15,8 @@
         data() {
             return {
                 todos: [],
-                filter: "all"
+                filter: "all",
+                placeholder:"なにをしますか"
             }
         },
         components: {
@@ -36,6 +37,11 @@
         },
         methods: {
             addTodo(e) {
+                if(!e.target.value || e.target.value.replace(/\s/g,"").length==0){
+                    e.target.value = "";
+                    this.placeholder="输入不能为空";
+                    return;
+                }
                 this.todos.unshift({
                     id: id++,
                     content: e.target.value.trim(),

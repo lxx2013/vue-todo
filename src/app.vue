@@ -27,6 +27,7 @@
         top: 0;
         right: 0;
         bottom: 0;
+        overflow: auto;
     }
 
     #cover {
@@ -35,9 +36,16 @@
         top: 0;
         right: 0;
         bottom: 0;
-        background-color: #999;
-        opacity: 0.6;
+        background-image: url(./assets/images/bg.jpeg);
+        background-size: cover;
+        background-position: center center;
+        transform:scale(1.2);
+        opacity: 1;
         z-index: -1;
+    }
+    .blur{
+        filter: blur(10px);
+        box-shadow: inset 0 0 5px  #444;
     }
 
 </style>
